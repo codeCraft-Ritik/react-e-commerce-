@@ -172,3 +172,21 @@ li {
   top: 2.8rem !important;
   background-color: #031D44;
 }/*# sourceMappingURL=Navbar.css.map */
+
+/* Custom styling for the cart badge */
+.navbar .relative {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Custom styling for the cart badge */
+.navbar span.bg-red-600 {
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 11px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}

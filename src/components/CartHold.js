@@ -18,6 +18,10 @@ const CartHold = () => {
         return item.quantity * item.price;
     }).reduce((totalPrice, singleItemPrice) => totalPrice + singleItemPrice, 0);
 
+    // Handler to clear the entire cart
+    const handleClearCart = () => {
+        dispatch(cartActions.clearCart());
+    };
 
     return (
         <div>
@@ -27,6 +31,15 @@ const CartHold = () => {
                 <div className=' flex flex-row relative gap-40 urCartItem'>
                     <p className=' text-2xl'> Your Cart </p>
                     <p className=' font-semibold fof lin text-xl'> {cartLen} items </p>
+
+                    {/* Added Clear Cart Button */}
+                    <button 
+                        onClick={handleClearCart} 
+                        className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-700 transition-colors fof"
+                    >
+                        Clear Cart
+                    </button>
+
                 </div>
 
 

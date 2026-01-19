@@ -42,6 +42,11 @@ const cartSlice = createSlice({
                 existingItem.totalPrice = existingItem.totalPrice - existingItem.price;
             }
         },
+        // New reducer to empty the entire cart at once
+        clearCart(state) {
+            state.items = [];
+            state.totalQuantity = 0;
+        },
     }
 })
 

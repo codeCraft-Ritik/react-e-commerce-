@@ -10,188 +10,84 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const NavBar = () => {
-    const [show, setShow] = useState(false);
-    const [show2, setShow2] = useState(false);
-    const [show3, setShow3] = useState(false);
-    const [show4, setShow4] = useState(false);
+    // Access the total quantity from the cart state
+    const cartQuantity = useSelector((state) => state.cart.totalQuantity);
 
+    // Refactored: Single state to track the active dropdown menu
+    const [activeDropdown, setActiveDropdown] = useState(null);
 
-    const showHandler = () => {
-        setShow(true)
-        setShow2(false)
-        setShow3(false)
-        setShow4(false)
+    const handleMouseOver = (menuName) => {
+        setActiveDropdown(menuName);
+    };
 
-    }
-
-    const showHandler2 = () => {
-        setShow2(true)
-        setShow(false)
-        setShow3(false)
-        setShow4(false)
-
-    }
-
-    const showHandler3 = () => {
-        setShow3(true)
-        setShow(false)
-        setShow2(false)
-        setShow4(false)
-    }
-
-    const showHandler4 = () => {
-        setShow4(true)
-        setShow(false)
-        setShow2(false)
-        setShow3(false)
-
-    }
-
-
-    const dontShowHandler = () => {
-        setShow(false)
-        setShow2(false)
-        setShow3(false)
-        setShow4(false)
-
-
-    }
+    const handleMouseLeave = () => {
+        setActiveDropdown(null);
+    };
 
     return (
         <div>
-
-
-            <header class="banner" role="banner">
-
-                <nav class="navbar" role="navigation" aria-label="menu">
+            <header className="banner" role="banner">
+                <nav className="navbar" role="navigation" aria-label="menu">
 
                     <Link to="/">
-                        <img src={logo} className=" ml-32" />
+                        <img src={logo} className=" ml-32" alt="logo" />
                     </Link>
 
-                    <ul class="menuNav">
-                        <li class="dropdown nav-link nav-link-fade-up transition-all duration-700" onMouseOver={showHandler} >
+                    <ul className="menuNav">
+                        {/* BEST SELLERS Dropdown */}
+                        <li 
+                            className="dropdown nav-link nav-link-fade-up transition-all duration-700" 
+                            onMouseOver={() => handleMouseOver('bestSellers')}
+                        >
                             BEST SELLERS
-                            {show && <div>
-                                <ul class="dropdown-nav" onMouseLeave={dontShowHandler} >
-
-                                    <BestSellers > </BestSellers>
-
+                            {activeDropdown === 'bestSellers' && (
+                                <ul className="dropdown-nav" onMouseLeave={handleMouseLeave}>
+                                    <BestSellers />
                                 </ul>
+                            )}
+                        </li>
 
-                            </div>}
-
-                        </li >
-
-
-                        <li class="dropdown nav-link nav-link-fade-up" onMouseOver={showHandler2} >
+                        {/* GIFT SETS Dropdown */}
+                        <li 
+                            className="dropdown nav-link nav-link-fade-up" 
+                            onMouseOver={() => handleMouseOver('giftSets')}
+                        >
                             GIFT SETS
-                            {show2 && <ul class="dropdown-nav dropdown-nav2" onMouseLeave={dontShowHandler}>
-                                <GiftSets />
-                            </ul>}
-
+                            {activeDropdown === 'giftSets' && (
+                                <ul className="dropdown-nav dropdown-nav2" onMouseLeave={handleMouseLeave}>
+                                    <GiftSets />
+                                </ul>
+                            )}
                         </li>
 
-
-                        <li class="dropdown nav-link nav-link-fade-up" onMouseOver={showHandler3} >
+                        {/* SHOP RANGE Dropdown */}
+                        <li 
+                            className="dropdown nav-link nav-link-fade-up" 
+                            onMouseOver={() => handleMouseOver('shopRange')}
+                        >
                             SHOP RANGE
-                            {show3 && <ul class="dropdown-nav dropdown-nav3" onMouseLeave={dontShowHandler}>
-                                <Body />
-                            </ul>}
-
+                            {activeDropdown === 'shopRange' && (
+                                <ul className="dropdown-nav dropdown-nav3" onMouseLeave={handleMouseLeave}>
+                                    <Body />
+                                </ul>
+                            )}
                         </li>
 
-
-                        <p className='navLine absolute bg-red-600 w-1 font-extralight h-9 z-50'>  </p>
-
+                        <p className='navLine absolute bg-red-600 w-1 font-extralight h-9 z-50'></p>
                     </ul>
 
-                    <Link to="/cart">
-                        <FaShoppingBag className=' text-2xl text-right ml-10 relative left-24' />
+                    <Link to="/cart" className="relative flex items-center">
+                        <FaShoppingBag className='text-2xl text-right ml-10 relative left-24' />
+                        {cartQuantity > 0 && (
+                            <span className="absolute top-[-10px] right-[-15px] bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded-full left-[115px] z-50">
+                                {cartQuantity}
+                            </span>
+                        )}
                     </Link>
-                </nav >
-            </header >
-
-
-
-        </div >
+                </nav>
+            </header>
+        </div>
     )
 }
 
-export default NavBar
-
-
-
-
-
-
-
-/*    
-
-
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-             <div class="container">
-                <div class="dropdown" onMouseOver={showHandler}>
-                    <button class="dropbtn">Dropdown</button>
-                    <div class="dropdown-content" onMouseLeave={dontShowHandler}>
-                     {show && <BestSellers /> }
-                    </div>
-                </div>
-
-                <div class="dropdown" onMouseOver={showHandler2}>
-                    <button class="dropbtn">Dropdown</button>
-                    <div class="dropdown-content" onMouseLeave={dontShowHandler}>
-                    {show2 && <GiftSets /> }
-                    </div>
-                </div>
-
-
-                <div class="dropdown">
-                    <button class="dropbtn">Dropdown</button>
-                    <div class="dropdown-content">
-                        Link 1
-                        Link 2
-                        Link 3
-                    </div>
-                </div>
-
-
-                <a href="#news">Link</a>
-            </div>
-
-            <h3>Dropdown Menu inside a Navigation Bar</h3>
-            <p>Hover over the "Dropdown" link to see the dropdown menu.</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/
-
+export default NavBar;

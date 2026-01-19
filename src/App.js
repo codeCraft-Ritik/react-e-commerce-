@@ -38,6 +38,20 @@ function App() {
           <Route path='/under40' element={<> <NavBar />  <Under10 /> </>} />
           <Route path='/forher' element={<> <NavBar />  <ForHer /> </>} />
           <Route path='/forhim' element={<> <NavBar />  <ForHim /> </>} />
+
+          {/* CATCH-ALL ROUTE (404 Page) -------- This must always be the last route inside <Routes> */}
+          <Route path="*" element={
+            <> 
+              <NavBar /> 
+              <MobileNav /> 
+              <div className="text-center mt-20">
+                <h1 className="text-4xl font-bold fof">404 - Page Not Found</h1>
+                <p className="mt-4 fof">The page you are looking for does not exist.</p>
+              </div> 
+            </>
+          } />
+
+
         </Routes>
 
       </BrowserRouter>
